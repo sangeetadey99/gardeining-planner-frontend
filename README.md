@@ -83,7 +83,7 @@ The Gardening Planner Frontend is a modern, responsive web application designed 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/gardeining-planner-frontend.git
+   git clone https://github.com/sangeetadey99/gardeining-planner-frontend.git
    cd gardeining-planner-frontend/gardening-frontend-client
    ```
 
