@@ -150,6 +150,10 @@ function Plants() {
                   {plant.name}
                 </h3>
 
+                <p className="text-sm text-gray-500 mb-1">
+                  Plant ID: {plant.id}
+                </p>
+
                 <p className="text-gray-600">
                   Type: {plant.type}
                 </p>
