@@ -120,21 +120,6 @@ function Login() {
             </Link>
           </p>
         </div>
-
-        {/* Additional Features */}
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <div className="text-center">
-            <p className="text-xs text-gray-400 mb-3">Or continue with</p>
-            <div className="flex justify-center space-x-3">
-              <button className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
-                <span className="text-sm">📧</span>
-              </button>
-              <button className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
-                <span className="text-sm">🔐</span>
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
