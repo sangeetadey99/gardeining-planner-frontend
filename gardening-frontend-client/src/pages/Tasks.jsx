@@ -89,91 +89,116 @@ function Tasks() {
 
   return (
     <Layout>
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6">Tasks</h2>
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-800">
+          Tasks
+        </h2>
 
+        {/* Add Task Form */}
         <form
           onSubmit={handleAdd}
-          className="bg-white p-6 rounded-xl shadow mb-8 grid md:grid-cols-4 gap-4"
+          className="bg-white p-4 sm:p-6 rounded-xl shadow-lg mb-6 sm:mb-8"
         >
-          <select
-            value={plantId}
-            onChange={(e) => setPlantId(e.target.value)}
-            required
-            className="border p-3 rounded"
-          >
-            <option value="">Select Plant</option>
-            {plants.map((plant) => (
-              <option key={plant.id} value={plant.id}>
-                {plant.name}
-              </option>
-            ))}
-          </select>
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">Add New Task</h3>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <select
+              value={plantId}
+              onChange={(e) => setPlantId(e.target.value)}
+              required
+              className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            >
+              <option value="">Select Plant</option>
+              {plants.map((plant) => (
+                <option key={plant.id} value={plant.id}>
+                  {plant.name}
+                </option>
+              ))}
+            </select>
 
-          <input
-            type="text"
-            placeholder="Task Type"
-            value={taskType}
-            onChange={(e) => setTaskType(e.target.value)}
-            required
-            className="border p-3 rounded"
-          />
+            <input
+              type="text"
+              placeholder="Task Type"
+              value={taskType}
+              onChange={(e) => setTaskType(e.target.value)}
+              required
+              className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            />
 
-          <input
-            type="date"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            required
-            className="border p-3 rounded"
-          />
+            <input
+              type="date"
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+              required
+              className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            />
 
-          <button className="bg-green-600 text-white rounded-lg">
-            Add Task
-          </button>
+            <button className="bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-medium">
+              Add Task
+            </button>
+          </div>
         </form>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {tasks.map((task) => (
-            <div
-              key={task.id}
-              className="bg-white p-6 rounded-xl shadow"
-            >
-              <h3 className="font-semibold text-lg">
-                {task.task_type}
-              </h3>
+        {/* Tasks Grid */}
+        {tasks.length === 0 ? (
+          <div className="text-gray-500 text-center mt-10 p-8 bg-white rounded-xl shadow">
+            <div className="text-4xl mb-4">📋</div>
+            <p className="text-lg">No tasks added yet</p>
+            <p className="text-sm mt-2">Start by adding your first task above!</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+            {tasks.map((task) => (
+              <div
+                key={task.id}
+                className="bg-white p-4 sm:p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
+              >
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    {task.task_type}
+                  </h3>
+                  <div className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    task.status === "completed" 
+                      ? "bg-green-100 text-green-700" 
+                      : "bg-yellow-100 text-yellow-700"
+                  }`}>
+                    {task.status}
+                  </div>
+                </div>
 
-              <p className="text-gray-600">
-                Plant: {task.plants?.name}
-              </p>
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-gray-600">Plant:</span>
+                    <span className="text-sm text-gray-800">{task.plants?.name || "N/A"}</span>
+                  </div>
 
-              <p className="text-gray-600">
-                Due: {task.due_date}
-              </p>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-gray-600">Due:</span>
+                    <span className="text-sm text-gray-800">{task.due_date}</span>
+                  </div>
+                </div>
 
-              <p className="mt-2 text-sm">
-                Status: {task.status}
-              </p>
+                <div className="flex gap-2 flex-wrap">
+                  {task.status !== "completed" && (
+                    <button
+                      onClick={() => handleComplete(task.id)}
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg transition-colors text-sm font-medium"
+                    >
+                      Complete
+                    </button>
+                  )}
 
-              <div className="flex gap-3 mt-4">
-                {task.status !== "completed" && (
                   <button
-                    onClick={() => handleComplete(task.id)}
-                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                    onClick={() => handleDelete(task.id)}
+                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transition-colors text-sm font-medium"
                   >
-                    Complete
+                    Delete
                   </button>
-                )}
-
-                <button
-                  onClick={() => handleDelete(task.id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded"
-                >
-                  Delete
-                </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </Layout>
   );

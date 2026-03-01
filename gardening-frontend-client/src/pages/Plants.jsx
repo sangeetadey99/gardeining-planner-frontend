@@ -89,90 +89,107 @@ function Plants() {
 
   return (
     <Layout>
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-green-700 mb-6">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-bold text-green-700 mb-6">
           Your Plants
         </h2>
 
         {/* Add / Update Form */}
         <form
           onSubmit={handleAddPlant}
-          className="bg-white p-6 rounded-2xl shadow-lg mb-8 grid md:grid-cols-4 gap-4"
+          className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg mb-6 sm:mb-8"
         >
-          <input
-            type="text"
-            placeholder="Plant Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="border p-3 rounded-lg focus:outline-green-500"
-          />
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            {editingId ? "Update Plant" : "Add New Plant"}
+          </h3>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <input
+              type="text"
+              placeholder="Plant Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            />
 
-          <input
-            type="text"
-            placeholder="Type"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            required
-            className="border p-3 rounded-lg focus:outline-green-500"
-          />
+            <input
+              type="text"
+              placeholder="Type"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              required
+              className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            />
 
-          <input
-            type="text"
-            placeholder="Sunlight"
-            value={sunlight}
-            onChange={(e) => setSunlight(e.target.value)}
-            required
-            className="border p-3 rounded-lg focus:outline-green-500"
-          />
+            <input
+              type="text"
+              placeholder="Sunlight"
+              value={sunlight}
+              onChange={(e) => setSunlight(e.target.value)}
+              required
+              className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            />
 
-          <button
-            type="submit"
-            className="bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
-          >
-            {editingId ? "Update Plant" : "Add Plant"}
-          </button>
+            <button
+              type="submit"
+              className="bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            >
+              {editingId ? "Update Plant" : "Add Plant"}
+            </button>
+          </div>
         </form>
 
         {/* Plants Grid */}
         {plants.length === 0 ? (
-          <div className="text-gray-500 text-center mt-10">
-            No plants added yet 🌿
+          <div className="text-gray-500 text-center mt-10 p-8 bg-white rounded-xl shadow">
+            <div className="text-4xl mb-4">🌿</div>
+            <p className="text-lg">No plants added yet</p>
+            <p className="text-sm mt-2">Start by adding your first plant above!</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {plants.map((plant) => (
               <div
                 key={plant.id}
-                className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition"
+                className="bg-white p-4 sm:p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
               >
-                <h3 className="text-xl font-semibold text-green-700 mb-2">
-                  {plant.name}
-                </h3>
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="text-lg sm:text-xl font-semibold text-green-700">
+                    {plant.name}
+                  </h3>
+                  <div className="bg-green-100 p-2 rounded-lg">
+                    <span className="text-green-600">🌱</span>
+                  </div>
+                </div>
 
-                <p className="text-sm text-gray-500 mb-1">
+                <p className="text-xs sm:text-sm text-gray-500 mb-2">
                   Plant ID: {plant.id}
                 </p>
 
-                <p className="text-gray-600">
-                  Type: {plant.type}
-                </p>
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs sm:text-sm font-medium text-gray-600">Type:</span>
+                    <span className="text-xs sm:text-sm text-gray-800">{plant.type}</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs sm:text-sm font-medium text-gray-600">Sunlight:</span>
+                    <span className="text-xs sm:text-sm text-gray-800">{plant.sunlight}</span>
+                  </div>
+                </div>
 
-                <p className="text-gray-600">
-                  Sunlight: {plant.sunlight}
-                </p>
-
-                <div className="flex gap-3 mt-4">
+                <div className="flex gap-2 sm:gap-3">
                   <button
                     onClick={() => handleEdit(plant)}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
+                    className="flex-1 bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg transition-colors text-sm font-medium"
                   >
                     Edit
                   </button>
 
                   <button
                     onClick={() => handleDelete(plant.id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition"
+                    className="flex-1 bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transition-colors text-sm font-medium"
                   >
                     Delete
                   </button>

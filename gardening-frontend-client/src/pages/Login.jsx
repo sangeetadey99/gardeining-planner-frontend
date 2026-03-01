@@ -28,7 +28,7 @@ function Login() {
     try {
       const res = await loginUser(formData);
 
-      // ✅ FIXED HERE
+      // 
       const token = res.data.token;
       const user = res.data.user;
 
@@ -46,60 +46,95 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 via-green-50 to-white px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 transition-transform duration-300 hover:scale-[1.02]">
-        <h2 className="text-3xl font-bold text-center text-green-700 mb-2">
-          Welcome Back
-        </h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 via-green-50 to-white px-4 py-8">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-6 sm:p-8 transition-transform duration-300 hover:scale-[1.02]">
+        {/* Logo and Title */}
+        <div className="text-center mb-6">
+          <div className="text-4xl sm:text-5xl mb-3">🌿</div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-green-700 mb-2">
+            Welcome Back
+          </h2>
+          <p className="text-sm sm:text-base text-gray-500">
+            Login to manage your garden
+          </p>
+        </div>
 
-        <p className="text-center text-gray-500 mb-6">
-          Login to manage your garden
-        </p>
-
+        {/* Error Message */}
         {error && (
-          <div className="bg-red-100 text-red-600 text-sm p-2 rounded mb-4">
+          <div className="bg-red-100 border border-red-200 text-red-600 text-sm p-3 rounded-lg mb-4">
             {error}
           </div>
         )}
 
+        {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            required
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
-          />
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email Address
+            </label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-base"
+            />
+          </div>
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
-          />
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-base"
+            />
+          </div>
 
           <button
             type="submit"
-            className="w-full bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 hover:shadow-lg active:scale-95 transition-all duration-200"
+            className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold hover:shadow-lg active:scale-95 transition-all duration-200 text-base"
           >
             Login
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
-          Don't have an account?{" "}
-          <Link
-            to="/register"
-            className="text-green-600 font-medium hover:underline"
-          >
-            Register
-          </Link>
-        </p>
+        {/* Register Link */}
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-500">
+            Don't have an account?{" "}
+            <Link
+              to="/register"
+              className="text-green-600 font-medium hover:text-green-700 hover:underline transition-colors"
+            >
+              Register here
+            </Link>
+          </p>
+        </div>
+
+        {/* Additional Features */}
+        <div className="mt-6 pt-6 border-t border-gray-200">
+          <div className="text-center">
+            <p className="text-xs text-gray-400 mb-3">Or continue with</p>
+            <div className="flex justify-center space-x-3">
+              <button className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                <span className="text-sm">📧</span>
+              </button>
+              <button className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                <span className="text-sm">🔐</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
